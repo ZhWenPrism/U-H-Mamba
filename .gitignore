@@ -1,0 +1,26 @@
+# Python and notebooks
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+.venv/
+
+# Local datasets
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+
+# Experiments
+checkpoints/
+runs/
+outputs/
+wandb/
+*.ckpt
+*.pt
+*.pth
+
+# Local system files
+.DS_Store
+.idea/
+.vscode/
