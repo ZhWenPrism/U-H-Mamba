@@ -1,0 +1,40 @@
+cff-version: 1.2.0
+message: "If you use this project, please cite the published article below."
+title: "U-H-Mamba"
+type: software
+authors:
+  - family-names: Wen
+    given-names: Zhihong
+  - family-names: Liu
+    given-names: Xiangpeng
+  - family-names: Niu
+    given-names: Wenshu
+  - family-names: Zhang
+    given-names: Hui
+  - family-names: Cheng
+    given-names: Yuhua
+repository-code: "https://github.com/wenzhihong168/U-H-Mamba"
+url: "https://doi.org/10.3390/en19020414"
+identifiers:
+  - type: doi
+    value: "10.3390/en19020414"
+    description: "Published article"
+preferred-citation:
+  type: article
+  title: "U-H-Mamba: An Uncertainty-Aware Hierarchical State-Space Model for Lithium-Ion Battery Remaining Useful Life Prediction Using Hybrid Laboratory and Real-World Datasets"
+  authors:
+    - family-names: Wen
+      given-names: Zhihong
+    - family-names: Liu
+      given-names: Xiangpeng
+    - family-names: Niu
+      given-names: Wenshu
+    - family-names: Zhang
+      given-names: Hui
+    - family-names: Cheng
+      given-names: Yuhua
+  journal: "Energies"
+  volume: 19
+  issue: 2
+  year: 2026
+  doi: "10.3390/en19020414"
