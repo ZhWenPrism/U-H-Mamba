@@ -10,6 +10,7 @@ Technical notes for the public U-H-Mamba research repository.
 | [Artifact manifest](ARTIFACT_MANIFEST.md) | Links licensed data revisions to models, calibration, and figures |
 | [Failure analysis](FAILURE_ANALYSIS.md) | Reviews life-stage, domain-shift, and uncertainty failures |
 | [Reproducibility scope](REPRODUCIBILITY.md) | States unit-level split rules and release boundaries |
+| [Release checklist](RELEASE_CHECKLIST.md) | Verifies dataset licensing, calibration, transfer, and deployment evidence |
 
 ## Recommended order
 
