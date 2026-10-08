@@ -86,7 +86,7 @@ U-H-Mamba/
 └── README.md
 ```
 
-The package directories are intentionally empty placeholders. Model implementation is not included in this release.
+The repository now includes a dependency-light public utility layer for validated battery sequences, point and interval metrics, and finite-sample split-conformal calibration, with unit tests and CI. The trained hierarchical state-space model, checkpoints, and source datasets are not included in this release.
 
 <details>
 <summary><b>Citation</b></summary>
