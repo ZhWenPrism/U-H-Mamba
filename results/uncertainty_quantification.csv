@@ -1,0 +1,7 @@
+dataset,coverage_probability_95_percent,mean_prediction_interval_width_cycles,negative_log_likelihood,calibration_error,sharpness
+NASA (Overall),98.4 ± 0.8,9.8 ± 1.1,0.46 ± 0.05,0.04 ± 0.01,0.11 ± 0.01
+CALCE CS2-33 (Overall),98.3 ± 0.9,9.6 ± 1.1,0.46 ± 0.05,0.04 ± 0.01,0.11 ± 0.01
+Oxford Cell 1 (Overall),98.4 ± 0.8,9.0 ± 1.0,0.44 ± 0.04,0.04 ± 0.01,0.10 ± 0.01
+NDANEV Vehicle 1 (Overall),98.3 ± 0.9,11.6 ± 1.3,0.49 ± 0.05,0.05 ± 0.01,0.13 ± 0.01
+BatteryML Fleet Avg. (Overall),98.6 ± 0.7,10.4 ± 1.2,0.47 ± 0.05,0.04 ± 0.01,0.12 ± 0.01
+Overall Mean,98.4 ± 0.8,10.1 ± 1.1,0.46 ± 0.05,0.04 ± 0.01,0.11 ± 0.01
