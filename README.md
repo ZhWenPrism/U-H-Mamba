@@ -15,6 +15,8 @@
 
 U-H-Mamba separates fast intra-cycle electrochemical dynamics from slow inter-cycle degradation, producing accurate RUL estimates together with calibrated prediction intervals.
 
+The framework is designed for the domain gap between controlled laboratory cycling and operational electric-vehicle data. It combines measured electrical signals with cumulative-energy, virtual-impedance, and pressure-aware descriptors, then evaluates whether the learned degradation representation transfers across cells, datasets, and operating regimes without losing uncertainty awareness.
+
 ## At a glance
 
 <table align="center">
@@ -51,8 +53,10 @@ U-H-Mamba separates fast intra-cycle electrochemical dynamics from slow inter-cy
 
 U-H-Mamba separates within-cycle signal encoding from across-cycle degradation modeling. A multi-scale TCN extracts local electrochemical fingerprints, the enhanced Mamba block propagates long-horizon state evolution, and the uncertainty head couples Monte Carlo dropout with conformal recalibration.
 
+This hierarchy gives each module a specific role. Dilated temporal convolutions summarize local voltage, current, temperature, impedance, and state-of-charge behavior; the pressure-aware state-space decoder tracks the slower transition toward the degradation knee and end of life. The final probabilistic layer reports both an RUL estimate and a calibrated interval, so predictive confidence can widen when the operating domain becomes less familiar.
+
 <p align="center">
-  <img src="assets/architecture.png" width="920" alt="U-H-Mamba architecture"><br>
+  <img src="assets/architecture.png" alt="U-H-Mamba architecture"><br>
   <sub>Figure 2. Hierarchical architecture and uncertainty-calibration workflow.</sub>
 </p>
 
@@ -78,8 +82,10 @@ U-H-Mamba separates within-cycle signal encoding from across-cycle degradation m
 
 The comparative evaluation places the proposed model against conventional sequence models across early, middle, and late degradation. The error landscape highlights the benefit of jointly modeling local cycle signatures, long-range state transitions, and calibrated uncertainty.
 
+Across all datasets, U-H-Mamba achieved an average RMSE of 4.5 ± 0.5 cycles and an R² of 0.990 ± 0.003. Performance improved as more of the degradation trajectory became available, with NASA B0005 RMSE decreasing from 5.2 ± 0.6 cycles in the early phase to 2.2 ± 0.3 cycles in the late phase. On the operational NDANEV dataset, the overall RMSE remained 5.8 ± 0.6 cycles despite substantially greater environmental variability.
+
 <p align="center">
-  <img src="assets/results.png" width="920" alt="U-H-Mamba prediction and uncertainty results"><br>
+  <img src="assets/results.png" alt="U-H-Mamba prediction and uncertainty results"><br>
   <sub>Figure 7. Comparative performance across degradation stages.</sub>
 </p>
 
@@ -87,8 +93,10 @@ The comparative evaluation places the proposed model against conventional sequen
 
 Capacity trajectories, smoothed derivatives, and error distributions reveal how degradation signatures change around the knee point. These signals motivate the separation of fast intra-cycle dynamics from slow lifetime evolution.
 
+The figure also shows why a single global trend is insufficient: voltage and capacity evolve smoothly over long horizons, whereas derivative-based indicators respond sharply to local transitions and measurement noise. Multi-scale encoding allows the model to retain both behaviors, using short-range fingerprints to detect emerging change and long-range state dynamics to stabilize lifetime prediction.
+
 <p align="center">
-  <img src="assets/degradation-analysis.png" width="900" alt="Battery degradation analysis"><br>
+  <img src="assets/degradation-analysis.png" alt="Battery degradation analysis"><br>
   <sub>Figure 3. Degradation trajectories and smoothing-error analysis.</sub>
 </p>
 
@@ -96,8 +104,10 @@ Capacity trajectories, smoothed derivatives, and error distributions reveal how 
 
 The predicted RUL curve remains close to the observed lifetime trajectory while retaining stable error behavior near the nonlinear transition region. Error and relative-error panels make the temporal failure modes directly inspectable.
 
+Most deviations remain within a narrow cycle-level range, and the average error decreases after the knee is identified. This behavior is important because delayed adaptation around the knee can inflate remaining-life estimates precisely when maintenance decisions become time-sensitive. The trajectory view therefore complements aggregate RMSE by showing when errors occur and whether they persist.
+
 <p align="center">
-  <img src="assets/rul-trajectories.png" width="900" alt="RUL prediction trajectories"><br>
+  <img src="assets/rul-trajectories.png" alt="RUL prediction trajectories"><br>
   <sub>Figure 8. RUL prediction and error trajectories.</sub>
 </p>
 
@@ -105,8 +115,10 @@ The predicted RUL curve remains close to the observed lifetime trajectory while 
 
 Prediction intervals adapt to dataset-specific operating variability while maintaining high empirical coverage. Wider bands appear in noisier operational regimes, providing an explicit reliability signal instead of a point estimate alone.
 
+Across the five evaluation settings, mean 95% coverage was 98.4 ± 0.8% with a mean interval width of 10.1 ± 1.1 cycles. Oxford Cell 1 produced the narrowest intervals, whereas NDANEV required wider bands to accommodate real-world operating variation. The calibration results indicate that the model becomes appropriately less confident under domain shift rather than expressing the same uncertainty everywhere.
+
 <p align="center">
-  <img src="assets/uncertainty-quantification.png" width="900" alt="Calibrated uncertainty across four battery datasets"><br>
+  <img src="assets/uncertainty-quantification.png" alt="Calibrated uncertainty across four battery datasets"><br>
   <sub>Figure 9. Calibrated prediction intervals across four datasets.</sub>
 </p>
 
@@ -114,8 +126,10 @@ Prediction intervals adapt to dataset-specific operating variability while maint
 
 Global SHAP analysis ranks cumulative-energy, mileage, and impedance-related variables among the dominant contributors. The attribution pattern connects long-horizon usage exposure with measurable electrochemical degradation.
 
+Cumulative energy and mileage carry the largest mean absolute contributions, followed by the real and imaginary components of impedance. This ordering is physically coherent with progressive throughput exposure, resistance growth, and loss of active lithium. Pressure-aware variables contribute additional information about swelling-related degradation, particularly when voltage and current profiles change across domains.
+
 <p align="center">
-  <img src="assets/global-shap.png" width="860" alt="Global SHAP summary"><br>
+  <img src="assets/global-shap.png" alt="Global SHAP summary"><br>
   <sub>Figure 10. Global feature attribution.</sub>
 </p>
 
@@ -123,8 +137,10 @@ Global SHAP analysis ranks cumulative-energy, mileage, and impedance-related var
 
 Local attribution views complement the global ranking by showing how feature influence changes between early, knee, and late degradation. This separates persistent drivers from stage-dependent effects.
 
+The local panels show that identical feature values need not have the same effect throughout battery life. Usage accumulation dominates the long-horizon decline, while impedance, pressure proxies, and thermal variables become more influential around specific transition regions. This stage-dependent view helps distinguish a global correlate of aging from a feature that is informative only near a particular failure regime.
+
 <p align="center">
-  <img src="assets/local-shap.png" width="880" alt="Stage-specific local SHAP analysis"><br>
+  <img src="assets/local-shap.png" alt="Stage-specific local SHAP analysis"><br>
   <sub>Figure 11. Stage-specific SHAP analysis.</sub>
 </p>
 
