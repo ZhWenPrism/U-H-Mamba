@@ -17,13 +17,26 @@ U-H-Mamba separates fast intra-cycle electrochemical dynamics from slow inter-cy
 
 ## At a glance
 
-| Input | Hierarchy | Reliability layer | Deployment target |
-|:---|:---|:---|:---|
-| 25 physical and virtual features | Multi-scale TCN → pressure-aware Mamba | MC Dropout + inductive conformal prediction | Edge BMS and fleet analytics |
+<table align="center">
+  <tr align="center">
+    <th>Input</th><th>Hierarchy</th><th>Reliability layer</th><th>Deployment target</th>
+  </tr>
+  <tr align="center">
+    <td>25 physical and<br>virtual features</td>
+    <td>Multi-scale TCN →<br>pressure-aware Mamba</td>
+    <td>MC Dropout + inductive<br>conformal prediction</td>
+    <td>Edge BMS and<br>fleet analytics</td>
+  </tr>
+</table>
 
-| Laboratory benchmarks | Operational datasets | Training scale | Model footprint |
-|:---:|:---:|:---:|:---:|
-| NASA · CALCE · Oxford | NDANEV · BatteryML | **146k+ cycles** | **1.3 M parameters** |
+<table align="center">
+  <tr align="center">
+    <th>Laboratory benchmarks</th><th>Operational datasets</th><th>Training scale</th><th>Model footprint</th>
+  </tr>
+  <tr align="center">
+    <td>NASA · CALCE · Oxford</td><td>NDANEV · BatteryML</td><td><b>146k+ cycles</b></td><td><b>1.3 M parameters</b></td>
+  </tr>
+</table>
 
 ## Model design
 
@@ -36,49 +49,84 @@ U-H-Mamba separates fast intra-cycle electrochemical dynamics from slow inter-cy
 
 ## Architecture
 
+U-H-Mamba separates within-cycle signal encoding from across-cycle degradation modeling. A multi-scale TCN extracts local electrochemical fingerprints, the enhanced Mamba block propagates long-horizon state evolution, and the uncertainty head couples Monte Carlo dropout with conformal recalibration.
+
 <p align="center">
-  <img src="assets/architecture.png" width="920" alt="U-H-Mamba architecture">
+  <img src="assets/architecture.png" width="920" alt="U-H-Mamba architecture"><br>
+  <sub>Figure 2. Hierarchical architecture and uncertainty-calibration workflow.</sub>
 </p>
 
 ## Published results
 
-| NASA average RMSE | NDANEV overall RMSE | Zero-shot lab → EV | 10% target fine-tuning |
-|:---:|:---:|:---:|:---:|
-| **3.7 ± 0.4 cycles** | **5.8 ± 0.6 cycles** | **6.4 ± 0.7 cycles** | **5.2 ± 0.5 cycles** |
-
-| Overall coverage | Mean interval width | Inference latency | Parameters |
-|:---:|:---:|:---:|:---:|
-| **98.4 ± 0.8%** | **10.1 ± 1.1 cycles** | **0.09 s/sample** | **1.3 M** |
-
-<p align="center">
-  <img src="assets/results.png" width="920" alt="U-H-Mamba prediction and uncertainty results">
-</p>
-
-### Degradation and uncertainty
-
-<table>
-  <tr>
-    <td width="50%"><img src="assets/degradation-analysis.png" alt="Battery degradation analysis"></td>
-    <td width="50%"><img src="assets/rul-trajectories.png" alt="RUL prediction trajectories"></td>
+<table align="center">
+  <tr align="center">
+    <th>NASA average RMSE</th><th>NDANEV overall RMSE</th><th>Zero-shot lab → EV</th><th>10% target fine-tuning</th>
   </tr>
-  <tr>
-    <td align="center"><sub>Degradation signatures</sub></td>
-    <td align="center"><sub>RUL trajectories and error profiles</sub></td>
+  <tr align="center">
+    <td><b>3.7 ± 0.4 cycles</b></td><td><b>5.8 ± 0.6 cycles</b></td><td><b>6.4 ± 0.7 cycles</b></td><td><b>5.2 ± 0.5 cycles</b></td>
   </tr>
 </table>
 
-<p align="center">
-  <img src="assets/uncertainty-quantification.png" width="900" alt="Calibrated uncertainty across four battery datasets">
-</p>
-
-### Interpretation
-
-<table>
-  <tr>
-    <td width="50%"><img src="assets/global-shap.png" alt="Global SHAP summary"></td>
-    <td width="50%"><img src="assets/local-shap.png" alt="Stage-specific local SHAP analysis"></td>
+<table align="center">
+  <tr align="center">
+    <th>Overall coverage</th><th>Mean interval width</th><th>Inference latency</th><th>Parameters</th>
+  </tr>
+  <tr align="center">
+    <td><b>98.4 ± 0.8%</b></td><td><b>10.1 ± 1.1 cycles</b></td><td><b>0.09 s/sample</b></td><td><b>1.3 M</b></td>
   </tr>
 </table>
+
+The comparative evaluation places the proposed model against conventional sequence models across early, middle, and late degradation. The error landscape highlights the benefit of jointly modeling local cycle signatures, long-range state transitions, and calibrated uncertainty.
+
+<p align="center">
+  <img src="assets/results.png" width="920" alt="U-H-Mamba prediction and uncertainty results"><br>
+  <sub>Figure 7. Comparative performance across degradation stages.</sub>
+</p>
+
+### Degradation representation
+
+Capacity trajectories, smoothed derivatives, and error distributions reveal how degradation signatures change around the knee point. These signals motivate the separation of fast intra-cycle dynamics from slow lifetime evolution.
+
+<p align="center">
+  <img src="assets/degradation-analysis.png" width="900" alt="Battery degradation analysis"><br>
+  <sub>Figure 3. Degradation trajectories and smoothing-error analysis.</sub>
+</p>
+
+### RUL trajectories
+
+The predicted RUL curve remains close to the observed lifetime trajectory while retaining stable error behavior near the nonlinear transition region. Error and relative-error panels make the temporal failure modes directly inspectable.
+
+<p align="center">
+  <img src="assets/rul-trajectories.png" width="900" alt="RUL prediction trajectories"><br>
+  <sub>Figure 8. RUL prediction and error trajectories.</sub>
+</p>
+
+### Uncertainty calibration
+
+Prediction intervals adapt to dataset-specific operating variability while maintaining high empirical coverage. Wider bands appear in noisier operational regimes, providing an explicit reliability signal instead of a point estimate alone.
+
+<p align="center">
+  <img src="assets/uncertainty-quantification.png" width="900" alt="Calibrated uncertainty across four battery datasets"><br>
+  <sub>Figure 9. Calibrated prediction intervals across four datasets.</sub>
+</p>
+
+### Global interpretation
+
+Global SHAP analysis ranks cumulative-energy, mileage, and impedance-related variables among the dominant contributors. The attribution pattern connects long-horizon usage exposure with measurable electrochemical degradation.
+
+<p align="center">
+  <img src="assets/global-shap.png" width="860" alt="Global SHAP summary"><br>
+  <sub>Figure 10. Global feature attribution.</sub>
+</p>
+
+### Stage-specific interpretation
+
+Local attribution views complement the global ranking by showing how feature influence changes between early, knee, and late degradation. This separates persistent drivers from stage-dependent effects.
+
+<p align="center">
+  <img src="assets/local-shap.png" width="880" alt="Stage-specific local SHAP analysis"><br>
+  <sub>Figure 11. Stage-specific SHAP analysis.</sub>
+</p>
 
 Published tables: [RUL performance](results/rul_performance.csv) · [uncertainty](results/uncertainty_quantification.csv) · [ablation](results/ablation.csv) · [transfer](results/cross_dataset_transfer.csv) · [data sensitivity](results/data_sensitivity.csv) · [efficiency](results/computational_efficiency.csv)
 
