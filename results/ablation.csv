@@ -1,0 +1,15 @@
+variant,phase,rmse,mae,r2,nll,noise_robustness_percent,delta_rmse_vs_full
+U-H-Mamba (Full Hierarchical),Early,5.2 ± 0.6,3.4 ± 0.4,0.985 ± 0.004,0.56 ± 0.06,9 ± 1,—
+w/o TCN Encoder (Linear Emb.),Early,8.2 ± 0.8,5.5 ± 0.6,0.958 ± 0.008,0.76 ± 0.08,26 ± 3,+58%
+w/o Enhanced Mamba,Early,7.4 ± 0.7,5.0 ± 0.6,0.963 ± 0.007,0.71 ± 0.07,21 ± 2,+42%
+w/o Pressure-Aware Gating,Early,6.7 ± 0.7,4.5 ± 0.5,0.968 ± 0.006,0.66 ± 0.07,19 ± 2,+29%
+w/o Hybrid UQ,Early,5.7 ± 0.6,3.8 ± 0.4,0.983 ± 0.003,0.86 ± 0.09,13 ± 1,+10%
+w/o Augmentation,Early,7.0 ± 0.7,4.7 ± 0.5,0.966 ± 0.006,0.69 ± 0.07,23 ± 3,+35%
+U-H-Mamba (Full Hierarchical),Mid,3.6 ± 0.4,2.4 ± 0.3,0.993 ± 0.002,0.43 ± 0.04,6 ± 1,—
+w/o TCN Encoder (Linear Emb.),Mid,6.7 ± 0.7,4.5 ± 0.5,0.963 ± 0.007,0.66 ± 0.07,16 ± 2,+86%
+w/o Pressure-Aware Gating,Mid,4.9 ± 0.5,3.3 ± 0.4,0.978 ± 0.004,0.53 ± 0.05,11 ± 1,+36%
+w/o Hybrid UQ,Mid,3.9 ± 0.4,2.6 ± 0.3,0.991 ± 0.002,0.73 ± 0.08,8 ± 1,+8%
+U-H-Mamba (Full Hierarchical),Late,2.2 ± 0.3,1.5 ± 0.2,0.997 ± 0.001,0.36 ± 0.03,4 ± 1,—
+w/o TCN Encoder (Linear Emb.),Late,4.2 ± 0.5,2.8 ± 0.4,0.984 ± 0.003,0.51 ± 0.05,9 ± 1,+91%
+w/o Pressure-Aware Gating,Late,3.2 ± 0.4,2.1 ± 0.3,0.991 ± 0.002,0.43 ± 0.04,6 ± 1,+45%
+w/o Hybrid UQ,Late,2.4 ± 0.3,1.6 ± 0.2,0.996 ± 0.001,0.56 ± 0.06,5 ± 1,+9%

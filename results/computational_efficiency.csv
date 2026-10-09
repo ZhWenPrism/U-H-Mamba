@@ -1,0 +1,7 @@
+model,train_time_seconds_per_epoch,inference_time_seconds_per_sample,parameters_millions,gpu_memory_gb,throughput_samples_per_second
+U-H-Mamba,47 ± 5,0.09 ± 0.01,1.3,6.2,11 ± 1
+Vanilla Mamba,40 ± 4,0.07 ± 0.01,0.9,5.2,15 ± 2
+PatchTST,125 ± 10,0.27 ± 0.03,2.6,10.2,4 ± 0.5
+TCN-LSTM,68 ± 7,0.13 ± 0.02,1.6,7.2,8 ± 1
+GRU-MC Dropout,58 ± 6,0.11 ± 0.02,1.1,5.7,9 ± 1
+XGBoost,32 ± 3,0.06 ± 0.01,0.6,3.2,18 ± 2

@@ -1,0 +1,6 @@
+training_data_ratio,rmse_cycles,mae_cycles,mean_prediction_interval_width,coverage_probability
+100% (Baseline),1.35 ± 0.05,1.08 ± 0.04,4.10,95.1%
+80%,1.42 ± 0.06,1.15 ± 0.05,5.40,95.4%
+60%,1.65 ± 0.08,1.30 ± 0.06,7.20,95.8%
+40%,1.98 ± 0.10,1.52 ± 0.08,9.80,96.2%
+20%,2.45 ± 0.12,1.88 ± 0.10,12.50,96.5%

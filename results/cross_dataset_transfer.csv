@@ -1,0 +1,8 @@
+training_to_test,transfer_type,rmse_cycles,mae_cycles,mape_percent,r2,coverage_probability_95_percent
+NASA → CALCE,Zero-Shot,5.0 ± 0.5,3.4 ± 0.4,2.8 ± 0.3,0.987 ± 0.003,97.6 ± 1.0
+NASA → CALCE,Fine-Tune (10%),4.2 ± 0.5,2.8 ± 0.4,2.3 ± 0.3,0.992 ± 0.003,98.3 ± 0.9
+CALCE → Oxford,Zero-Shot,4.7 ± 0.5,3.2 ± 0.4,2.6 ± 0.3,0.989 ± 0.003,97.8 ± 0.9
+NASA → NDANEV,Zero-Shot,6.4 ± 0.7,4.3 ± 0.5,3.5 ± 0.4,0.979 ± 0.004,97.0 ± 1.1
+NASA → NDANEV,Fine-Tune (10%),5.2 ± 0.5,3.5 ± 0.4,2.9 ± 0.3,0.986 ± 0.003,98.3 ± 0.9
+Oxford → BatteryML,Zero-Shot,5.7 ± 0.6,3.8 ± 0.5,3.2 ± 0.4,0.984 ± 0.004,98.0 ± 0.9
+Overall Average,—,5.4 ± 0.6,3.6 ± 0.4,3.0 ± 0.3,0.985 ± 0.004,97.8 ± 1.0
