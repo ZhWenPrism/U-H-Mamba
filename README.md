@@ -42,9 +42,9 @@ U-H-Mamba separates fast intra-cycle electrochemical dynamics from slow inter-cy
 
 ## Published results
 
-| NASA RMSE | NDANEV RMSE | Zero-shot lab → EV | 10% target fine-tuning |
+| NASA average RMSE | NDANEV overall RMSE | Zero-shot lab → EV | 10% target fine-tuning |
 |:---:|:---:|:---:|:---:|
-| **3.2 cycles** | **5.4 cycles** | **6.4 ± 0.7 cycles** | **5.2 ± 0.5 cycles** |
+| **3.7 ± 0.4 cycles** | **5.8 ± 0.6 cycles** | **6.4 ± 0.7 cycles** | **5.2 ± 0.5 cycles** |
 
 | Overall coverage | Mean interval width | Inference latency | Parameters |
 |:---:|:---:|:---:|:---:|
@@ -54,11 +54,40 @@ U-H-Mamba separates fast intra-cycle electrochemical dynamics from slow inter-cy
   <img src="assets/results.png" width="920" alt="U-H-Mamba prediction and uncertainty results">
 </p>
 
+### Degradation and uncertainty
+
+<table>
+  <tr>
+    <td width="50%"><img src="assets/degradation-analysis.png" alt="Battery degradation analysis"></td>
+    <td width="50%"><img src="assets/rul-trajectories.png" alt="RUL prediction trajectories"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Degradation signatures</sub></td>
+    <td align="center"><sub>RUL trajectories and error profiles</sub></td>
+  </tr>
+</table>
+
+<p align="center">
+  <img src="assets/uncertainty-quantification.png" width="900" alt="Calibrated uncertainty across four battery datasets">
+</p>
+
+### Interpretation
+
+<table>
+  <tr>
+    <td width="50%"><img src="assets/global-shap.png" alt="Global SHAP summary"></td>
+    <td width="50%"><img src="assets/local-shap.png" alt="Stage-specific local SHAP analysis"></td>
+  </tr>
+</table>
+
+Published tables: [RUL performance](results/rul_performance.csv) · [uncertainty](results/uncertainty_quantification.csv) · [ablation](results/ablation.csv) · [transfer](results/cross_dataset_transfer.csv) · [data sensitivity](results/data_sensitivity.csv) · [efficiency](results/computational_efficiency.csv)
+
 ## Codebase blueprint
 
 ```text
 U-H-Mamba/
-├── assets/                         # architecture and published results
+├── assets/                         # architecture and published result figures
+├── results/                        # machine-readable published tables
 ├── configs/
 │   ├── data/                       # dataset-specific feature profiles
 │   ├── model/                      # encoder, decoder, and UQ settings
