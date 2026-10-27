@@ -11,6 +11,10 @@
 
 <sub>146k+ cycles · physics-informed features · calibrated uncertainty · cross-domain transfer</sub>
 
+<p align="center">
+  <a href="#research-overview">Overview</a> · <a href="#architecture">Architecture</a> · <a href="#published-results">Results</a> · <a href="#installation">Installation</a> · <a href="docs/README.md">Documentation</a>
+</p>
+
 </div>
 
 U-H-Mamba separates fast intra-cycle electrochemical dynamics from slow inter-cycle degradation, producing accurate RUL estimates together with calibrated prediction intervals.
@@ -233,6 +237,27 @@ RUL depends on the chosen end-of-life definition, observation policy, feature av
 The current public repository provides validated data contracts, evaluation metrics, conformal-calibration utilities, result tables, and the planned package structure. It does not include the complete trained architecture, model checkpoints, or redistributed copies of source datasets. Reproducing the published model therefore requires lawful access to the underlying data and a future release of the full training pipeline.
 
 The framework is intended for research on battery prognostics and maintenance support. It does not by itself define a safety policy for vehicle operation, warranty decisions, or battery retirement. Such decisions require target-domain validation, cost-sensitive thresholds, monitoring for distribution shift, and integration with engineering safeguards outside the scope of the present study.
+
+## Installation
+
+The public utility package requires Python 3.10 or later and has no runtime dependencies.
+
+```bash
+git clone https://github.com/ZhWenPrism/U-H-Mamba.git
+cd U-H-Mamba
+python -m pip install -e .
+python -m unittest discover -s tests -v
+```
+
+### Package reference
+
+| Component | Entry point |
+|:---|:---|
+| Battery sequences, cycle observations, and split roles | [Data records](u_h_mamba/datasets/schema.py) |
+| Calibration from point predictions or existing intervals | [Conformal calibration](u_h_mamba/calibration/conformal.py) |
+| Point-prediction and interval metrics | [Evaluation metrics](u_h_mamba/evaluation/metrics.py) |
+
+[Data interface](docs/DATA_INTERFACE.md) · [Metric definitions](docs/METRICS.md) · [Result tables](results/)
 
 ## Codebase blueprint
 
