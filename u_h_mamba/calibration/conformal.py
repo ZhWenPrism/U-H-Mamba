@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from math import ceil, isfinite
+from numbers import Integral
 from typing import Iterable
 
 
@@ -33,8 +34,12 @@ class ConformalCalibrator:
             raise ValueError("alpha must lie between 0 and 1")
         if not isfinite(self.correction) or self.correction < 0:
             raise ValueError("correction must be finite and non-negative")
-        if self.calibration_size <= 0:
-            raise ValueError("calibration_size must be positive")
+        if (
+            isinstance(self.calibration_size, bool)
+            or not isinstance(self.calibration_size, Integral)
+            or self.calibration_size <= 0
+        ):
+            raise ValueError("calibration_size must be a positive integer")
 
     @classmethod
     def fit(
