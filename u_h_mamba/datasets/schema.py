@@ -21,6 +21,7 @@ class CycleObservation:
     rul_cycles: float | None = None
 
     def __post_init__(self) -> None:
+        object.__setattr__(self, "features", tuple(self.features))
         if self.cycle_index < 0:
             raise ValueError("cycle_index must be non-negative")
         if not self.features or any(not isfinite(value) for value in self.features):
@@ -40,6 +41,8 @@ class BatterySequence:
     observations: tuple[CycleObservation, ...]
 
     def __post_init__(self) -> None:
+        object.__setattr__(self, "feature_names", tuple(self.feature_names))
+        object.__setattr__(self, "observations", tuple(self.observations))
         if not self.unit_id.strip() or any(ch.isspace() for ch in self.unit_id):
             raise ValueError("unit_id must be a non-empty token")
         if not self.domain.strip():
