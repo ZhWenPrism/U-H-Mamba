@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from enum import Enum
 from math import isfinite
+from numbers import Integral
 
 
 class SplitRole(str, Enum):
@@ -22,8 +23,9 @@ class CycleObservation:
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "features", tuple(self.features))
-        if self.cycle_index < 0:
-            raise ValueError("cycle_index must be non-negative")
+        if isinstance(self.cycle_index, bool) or not isinstance(self.cycle_index, Integral) or self.cycle_index < 0:
+            raise ValueError("cycle_index must be a non-negative integer")
+        object.__setattr__(self, "cycle_index", int(self.cycle_index))
         if not self.features or any(not isfinite(value) for value in self.features):
             raise ValueError("features must be a non-empty finite vector")
         if self.rul_cycles is not None and (
