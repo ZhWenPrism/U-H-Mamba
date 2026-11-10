@@ -12,7 +12,7 @@ def _finite(values: Iterable[float], name: str) -> tuple[float, ...]:
     result = tuple(values)
     if not result or any(not isfinite(value) for value in result):
         raise ValueError(f"{name} must contain finite values")
-    return result
+    return tuple(map(float, result))
 
 
 def _quantile_correction(scores: Iterable[float], alpha: float) -> float:

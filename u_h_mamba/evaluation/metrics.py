@@ -11,7 +11,7 @@ def _values(items: Iterable[float], name: str) -> tuple[float, ...]:
     values = tuple(items)
     if not values or any(not isfinite(value) for value in values):
         raise ValueError(f"{name} must contain finite values")
-    return values
+    return tuple(map(float, values))
 
 
 def _paired(y_true: Iterable[float], y_pred: Iterable[float]) -> tuple[tuple[float, ...], tuple[float, ...]]:
@@ -85,10 +85,10 @@ def interval_metrics(
 def end_of_life_error(observed_cycle: float, predicted_cycle: float) -> float:
     if not isfinite(observed_cycle) or not isfinite(predicted_cycle):
         raise ValueError("EOL cycles must be finite")
-    return predicted_cycle - observed_cycle
+    return float(predicted_cycle) - float(observed_cycle)
 
 
 def knee_point_error(observed_cycle: float, predicted_cycle: float) -> float:
     if not isfinite(observed_cycle) or not isfinite(predicted_cycle):
         raise ValueError("knee-point cycles must be finite")
-    return abs(predicted_cycle - observed_cycle)
+    return abs(float(predicted_cycle) - float(observed_cycle))
