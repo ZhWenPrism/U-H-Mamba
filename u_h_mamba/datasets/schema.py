@@ -49,6 +49,11 @@ class BatterySequence:
             raise ValueError("unit_id must be a non-empty token")
         if not self.domain.strip():
             raise ValueError("domain must not be empty")
+        try:
+            split = SplitRole(self.split)
+        except (TypeError, ValueError) as exc:
+            raise ValueError("split must be train, validation, calibration, or test") from exc
+        object.__setattr__(self, "split", split)
         if not self.feature_names or len(set(self.feature_names)) != len(self.feature_names):
             raise ValueError("feature_names must be non-empty and unique")
         if not self.observations:
