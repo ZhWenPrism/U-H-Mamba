@@ -54,8 +54,10 @@ class BatterySequence:
         except (TypeError, ValueError) as exc:
             raise ValueError("split must be train, validation, calibration, or test") from exc
         object.__setattr__(self, "split", split)
-        if not self.feature_names or len(set(self.feature_names)) != len(self.feature_names):
-            raise ValueError("feature_names must be non-empty and unique")
+        if (not self.feature_names
+                or any(not isinstance(name, str) or not name.strip() for name in self.feature_names)
+                or len({name.strip() for name in self.feature_names}) != len(self.feature_names)):
+            raise ValueError("feature_names must contain non-empty unique column names")
         if not self.observations:
             raise ValueError("observations must not be empty")
         indices = [item.cycle_index for item in self.observations]
