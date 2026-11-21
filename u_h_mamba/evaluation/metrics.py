@@ -60,6 +60,7 @@ def interval_metrics(
     upper: Iterable[float],
     alpha: float = 0.05,
 ) -> IntervalMetrics:
+    alpha = float(alpha)
     truth = _values(y_true, "y_true")
     lows = _values(lower, "lower")
     highs = _values(upper, "upper")
