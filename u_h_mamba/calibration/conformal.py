@@ -30,6 +30,8 @@ class ConformalCalibrator:
     calibration_size: int
 
     def __post_init__(self) -> None:
+        object.__setattr__(self, "alpha", float(self.alpha))
+        object.__setattr__(self, "correction", float(self.correction))
         if not 0 < self.alpha < 1:
             raise ValueError("alpha must lie between 0 and 1")
         if not isfinite(self.correction) or self.correction < 0:
